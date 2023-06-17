@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "neural_networks",
+    "section": "",
+    "text": "pip install neural_networks"
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "neural_networks",
+    "section": "",
+    "text": "pip install neural_networks"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "neural_networks",
+    "section": "How to use",
+    "text": "How to use\n\nA. This is a module which provides a NeuralNetwork class to build a neural network.\nInputs: 1. input layer dimensions 2. activation functions for hidden layers + output layers. some of the valid activation functions are: 1. “relu” 2. “sigmoid” 3. “tanh” 4. “softmax” 3. loss functions: 1. “MSE” 2. “CrossEntropyLoss”\n\n\nThis module also contains a Optimizer class which takes in the training data and optimizes the parameter weights based on the type of optimizer and loss function\n\n# test run for binary classification problem:\nnp.random.seed(3)\nprint('Running a binary classification test')\n\nRunning a binary classification test\n\n\n\ndata = datasets.make_classification(n_samples=30000,n_features=10,n_classes=2)\nX = data[0].T\nY = (data[1].reshape(30000,1)).T\n\nprint(\"Input shape: \", X.shape)\nprint(\"Output shape: \", Y.shape)\n\nInput shape:  (10, 30000)\nOutput shape:  (1, 30000)\n\n\n\n#Generate sample binary classification data\nnet = NeuralNetwork(layer_dimensions=[10,20,1],\n                    activations=['relu','sigmoid'])\nnet.cost_function = 'CrossEntropyLoss'\nprint(net)\n\n==================== Network Architecture ====================\n-----&gt;&gt; Layer 1: ( 10,20 ) |  activation: relu | No of parameters: 200\n-----&gt;&gt; Layer 2: ( 20,1 ) |  activation: sigmoid | No of parameters: 20\n\n\n\n\n#Optimize using standard gradient descenet\noptim = Optimizer.gradientDescentOptimizer\noptim(input=X,\n      mappings=Y,\n      net=net,\n      alpha=0.07,\n      epoch=200,\n      lamb=0.05,\n      print_at=100)\noutput = net.forward(X)\n\n#Convert the probabilities to output values\noutput = 1*(output&gt;=0.5)\naccuracy = np.sum(output==Y)/30000\nprint('for gradient descent \\n accuracy = ' ,np.round(accuracy*100,5))\n\n==================== Optimizer: gradient-descent ====================\n-----&gt;&gt; Loss at  0 :  0.7462\n-----&gt;&gt; Loss at  100 :  0.24641\nfor gradient descent \n accuracy =  91.65"
+  },
+  {
+    "objectID": "nn.html",
+    "href": "nn.html",
+    "title": "neural_networks",
+    "section": "",
+    "text": "source\n\nNeuralNetwork\n\n NeuralNetwork (layer_dimensions:list=[], activations:list=[])\n\n\nInitializes networks’s weights and other useful variables.\n\n\nParameters:  layer_dimensions: specify the dimensions for each hidden + output layer activations: to store the activation for each hidden + output layer\n\n\nAttributes:  -parameters contains weights of the layer in form {‘Wi’:[],‘bi’:[]}  -cache contains intermediate results as [[A[i-1],Wi,bi],[Zi]], where i is layer number. -activations contains the names of activation function used for that layer  -cost_function contains the name of cost function to be used  -lamb contains the regularization hyper-parameter  -grads contains the gradients calculated during back-prop in form {‘dA(i-1)’:[],‘dWi’:[],‘dbi’:[]}  -layer_type contains the info about the type of layer( fc, conv etc) \n\n\nResults:  return: None"
+  },
+  {
+    "objectID": "optimizers.html",
+    "href": "optimizers.html",
+    "title": "neural_networks",
+    "section": "",
+    "text": "source\n\nOptimizer\n\n Optimizer ()\n\n\nTakes input for initialized neural network and implements optimization of parameter weights based on the algorithm\n\n\nResults:  return: None"
+  }
+]
