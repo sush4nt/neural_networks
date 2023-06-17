@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "neural_networks"
+  site-url: "https://sush4nt.github.io/neural_networks"
+  description: "Creating a python only implementation of neural networks."
+  repo-branch: main
+  repo-url: "https://github.com/sush4nt/neural_networks"
